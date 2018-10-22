@@ -1,4 +1,4 @@
-#Import all libraries needed to effectively run the application's visualizations and calculations
+# Import all libraries needed to effectively run the application's visualizations and calculations
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -8,15 +8,16 @@ import plotly.plotly as py
 import plotly.graph_objs as go
 from dash.dependencies import Input, Output, State
 
-#CSS stylesheet from the given link.
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] 
-#This adds the stylesheet to our web application
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets) 
-#This helps with deployment of the web application
+# CSS stylesheet from the given link.
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+# This adds the stylesheet to our web application
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+# This helps with deployment of the web application
 server = app.server
 
-#This reads the csv file and turns it into a dataframe.
-raw_bikeshare_data = pd.read_csv('metro-bike-share-trip-data.csv', low_memory=False)
+# This reads the csv file and turns it into a dataframe.
+raw_bikeshare_data = pd.read_csv(
+    'metro-bike-share-trip-data.csv', low_memory=False)
 # Station 4108 does not have accurate longitude and latitude coordinates, so it must be removed to produce reliable results.
 raw_bikeshare_data_omitting_station_4108 = raw_bikeshare_data[(
     raw_bikeshare_data['Starting Station ID'] != 4108) & (raw_bikeshare_data['Ending Station ID'] != 4108)]
@@ -85,13 +86,16 @@ one_way_count_by_day = trip_route_count_by_day[
 round_trip_count_by_day = trip_route_count_by_day[
     trip_route_count_by_day["Trip Route Category"] == "Round Trip"]
 # This returns the median duration of rides in minutes
-median_duration_of_rides_in_minutes = np.median(raw_bikeshare_data["Duration"])/60
+median_duration_of_rides_in_minutes = np.median(
+    raw_bikeshare_data["Duration"])/60
 # This returns the mean duration of rides in minutes
-average_duration_of_rides_in_minutes = np.mean(raw_bikeshare_data["Duration"])/60
+average_duration_of_rides_in_minutes = np.mean(
+    raw_bikeshare_data["Duration"])/60
 # This creates a dataframe that contains only round trips, exlcuding those that start and end at Station 4108, since the longitude and latitude are incorrect for that station.
 round_trips_only = raw_bikeshare_data[raw_bikeshare_data["Trip Route Category"] == "Round Trip"]
 # This creates a dataframe that contains only one-way trips, exlcuding those that start or end at Station 4108, since the longitude and latitude are incorrect for that station.
-one_way_trips_only = raw_bikeshare_data_omitting_station_4108[raw_bikeshare_data_omitting_station_4108["Trip Route Category"] == "One Way"]
+one_way_trips_only = raw_bikeshare_data_omitting_station_4108[
+    raw_bikeshare_data_omitting_station_4108["Trip Route Category"] == "One Way"]
 # This changes all coordinates from degrees to radians. We are only using one-way trips because the starting and ending stations have different coordinates.
 starting_longitude, starting_latitude, ending_longitude, ending_latitude = map(
     np.radians, [one_way_trips_only['Starting Station Longitude'], one_way_trips_only['Starting Station Latitude'], one_way_trips_only['Ending Station Longitude'], one_way_trips_only['Ending Station Latitude']])
@@ -100,8 +104,9 @@ difference_of_latitudes = ending_latitude - starting_latitude
 # This calculates the difference between the starting and ending longitudes.
 difference_of_longitudes = ending_longitude - starting_longitude
 # This is the Haversine distance formula for calculating distance between a set of coordinates.
-r = 3959  #radius of Earth in miles
-distance_in_miles = 2 * r * np.arcsin(np.sqrt((np.sin(difference_of_latitudes/2))**2 + np.cos(starting_latitude) * np.cos(ending_latitude) * (np.sin(difference_of_longitudes/2))**2))
+r = 3959  # radius of Earth in miles
+distance_in_miles = 2 * r * np.arcsin(np.sqrt((np.sin(difference_of_latitudes/2))**2 + np.cos(
+    starting_latitude) * np.cos(ending_latitude) * (np.sin(difference_of_longitudes/2))**2))
 # This adds a column "Distance in Miles" containing the distance traveled for each one-way ride to the "one_way_trips_only" dataframe.
 one_way_trips_only["Distance in Miles"] = pd.Series(distance_in_miles).values
 # This makes sure that each distance is above 0, so we know we don't have any null values or faulty data.
@@ -110,15 +115,17 @@ one_way_trips_only_with_distance = one_way_trips_only[one_way_trips_only["Distan
 average_speed_in_miles_per_min = np.sum(
     one_way_trips_only_with_distance["Distance in Miles"])/np.sum(one_way_trips_only_with_distance["Duration"]/60)
 # This estimates the distance traveled during round trips by multiplying the average speed of the one-way trips by the durations of the round-trips. We are assuming that the average speed of the one-way trips is the average speed for all trips.
-estimate_distances_for_round_trips = average_speed_in_miles_per_min * (round_trips_only["Duration"]/60)
+estimate_distances_for_round_trips = average_speed_in_miles_per_min * \
+    (round_trips_only["Duration"]/60)
 # This adds a column "Estimated Distance in Miles" containing the estimated distance traveled for each round trip ride to the "round_trips_only" dataframe.
-round_trips_only["Estimated Distance in Miles"] = pd.Series(estimate_distances_for_round_trips).values
+round_trips_only["Estimated Distance in Miles"] = pd.Series(
+    estimate_distances_for_round_trips).values
 # This makes sure that each distance is above 0, so we know we don't have any null values or faulty data.
 round_trips_only_with_estimated_distance = round_trips_only[
     round_trips_only["Estimated Distance in Miles"] > 0]
-# This calculates an estimate for the average distance traveled by riders.  
+# This calculates an estimate for the average distance traveled by riders.
 average_distance = (one_way_trips_only_with_distance["Distance in Miles"].sum() + round_trips_only_with_estimated_distance["Estimated Distance in Miles"].sum())/(len(one_way_trips_only_with_distance["Distance in Miles"]) + len(
-    round_trips_only_with_estimated_distance["Estimated Distance in Miles"]))  
+    round_trips_only_with_estimated_distance["Estimated Distance in Miles"]))
 # This creates a dataframe that has the column "Starting Date" and a column "Average Duration" with the average duration of rides for each day in minutes.
 average_ride_duration_by_day = (raw_bikeshare_data_split_starting_date_and_time[["Starting Date", "Duration"]].groupby(
     ["Starting Date"]).mean()/60).reset_index().rename(columns={'Duration': 'Average Duration'})
