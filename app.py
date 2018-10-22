@@ -134,7 +134,7 @@ number_of_rides_by_time = pd.DataFrame(
     {"count": raw_bikeshare_data_split_starting_date_and_time.groupby(["Starting Time"]).size()}).reset_index()
 
 app.layout = html.Div([
-    dcc.Tabs(id="tabs", children=[
+    dcc.Tabs(id="tabs", children=[ #children is a necessary property for running Dash apps
         dcc.Tab(label="Welcome Page", children=[
              html.Div([
                  html.H1(
