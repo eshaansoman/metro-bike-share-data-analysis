@@ -210,7 +210,7 @@ app.layout = html.Div([
                               title="Starting Station Frequencies",
                               xaxis=dict(
                                   title="Starting Station ID",
-                                  # This range covers all of the Starting Station IDs except for Station 4108. To view data for Station 4108, doulbe click on the graph.
+                                  # This range covers all of the Starting Station IDs except for Station 4108. To view data for Station 4108, double click on the graph.
                                   range=[2999, 3083]
                               ),
                               yaxis=dict(
@@ -244,7 +244,7 @@ app.layout = html.Div([
                             title="Ending Station Frequencies",
                             xaxis=dict(
                                 title="Ending Station ID",
-                                # This range covers all of the Ending Station IDs except for Station 4108. To view data for Station 4108, doulbe click on the graph.
+                                # This range covers all of the Ending Station IDs except for Station 4108. To view data for Station 4108, double click on the graph.
                                 range=[2999, 3083]
                             ),
                             yaxis=dict(
@@ -325,7 +325,7 @@ app.layout = html.Div([
                             title="Type of Rides at Starting Stations",
                             xaxis=dict(
                                 title="Starting Station ID",
-                                # This range covers all of the Starting Station IDs except for Station 4108. To view data for Station 4108, doulbe click on the graph.
+                                # This range covers all of the Starting Station IDs except for Station 4108. To view data for Station 4108, double click on the graph.
                                 range=[2999, 3083]
                             ),
                             yaxis=dict(
@@ -470,6 +470,7 @@ app.layout = html.Div([
                               title="Ride Duration Distribution",
                               xaxis=dict(
                                   title="Ride Duration (in minutes)",
+                                  #This range includes the majority of the data. Double click the graph to see all data.
                                   range=(0, 90)
                               ),
                               yaxis=dict(
@@ -504,6 +505,7 @@ app.layout = html.Div([
                             title="One-Way Ride Distance Distribution",
                             xaxis=dict(
                                   title="Distance Traveled (in miles)",
+                                  #This range includes the majority of the data. Double click the graph to see all data.
                                   range=(0, 4)
                             ),
                             yaxis=dict(
@@ -539,6 +541,7 @@ app.layout = html.Div([
                             title="Estimated Round Trip Distance Distribution",
                             xaxis=dict(
                                   title="Estimated Distance Traveled (in miles)",
+                                  #This range includes the majority of the data. Double click the graph to see all data.
                                   range=(0, 4)
                             ),
                             yaxis=dict(
