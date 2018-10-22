@@ -693,6 +693,8 @@ app.layout = html.Div([
                             ''',
                          style={
                              'textAlign': 'center',
+                             'marginLeft': 25,
+                             'marginRight': 25
                          }
                          ),
                 dcc.Graph(
@@ -722,6 +724,9 @@ app.layout = html.Div([
                             ''',
                          style={
                              'textAlign': 'center',
+                             'marginLeft': 25,
+                             'marginRight': 25,
+                             'marginBottom' : 25
                          }
                          ),
             ])
