@@ -11,7 +11,7 @@ from dash.dependencies import Input, Output, State
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] 
 #This adds the stylesheet to our web application
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets) 
- #This helps with deployment of the web application
+#This helps with deployment of the web application
 server = app.server
 
 #This reads the csv file and turns it into a dataframe.
@@ -32,8 +32,7 @@ start_to_end_station_trip_count = pd.DataFrame({"count": raw_bikeshare_data.grou
 start_to_end_station_trip_count["Starting to Ending Station Trip"] = start_to_end_station_trip_count["Starting Station ID"].astype(
     str) + " to " + start_to_end_station_trip_count["Ending Station ID"].astype(str).map(str)
 # This creates a dataframe that only contains information for round trips
-round_trips_only = raw_bikeshare_data[raw_bikeshare_data["Trip Route Category"]
-                            == "Round Trip"]
+round_trips_only = raw_bikeshare_data[raw_bikeshare_data["Trip Route Category"] == "Round Trip"]
 # This creates a dataframe that contains the number of round trips that leave from each Starting Station ID.
 round_trips_by_starting_starting_station = pd.DataFrame(
     {"count": round_trips_only.groupby(["Starting Station ID"]).size()}).reset_index()
@@ -61,8 +60,8 @@ raw_bikeshare_data_split_starting_date_and_time = raw_bikeshare_data.join(raw_bi
 number_of_rides_per_day = pd.DataFrame(
     {"count": raw_bikeshare_data_split_starting_date_and_time.groupby(["Starting Date"]).size()}).reset_index()
 # This creates a dataframe that contains the number of rides taken using the different Passholder types for each day.
-passholder_type_count_by_day = pd.DataFrame({"count": raw_bikeshare_data_split_starting_date_and_time.groupby([
-    "Starting Date", "Passholder Type"]).size()}).reset_index()
+passholder_type_count_by_day = pd.DataFrame({"count": raw_bikeshare_data_split_starting_date_and_time.groupby(
+    ["Starting Date", "Passholder Type"]).size()}).reset_index()
 # This creates a dataframe that contains the the number of rides taken each day using the Flex Pass
 flex_pass_count_by_day = passholder_type_count_by_day[
     passholder_type_count_by_day["Passholder Type"] == "Flex Pass"]
@@ -89,11 +88,9 @@ median_duration_of_rides_in_minutes = np.median(raw_bikeshare_data["Duration"])/
 # This returns the mean duration of rides in minutes
 average_duration_of_rides_in_minutes = np.mean(raw_bikeshare_data["Duration"])/60
 # This creates a dataframe that contains only round trips, exlcuding those that start and end at Station 4108, since the longitude and latitude are incorrect for that station.
-round_trips_only = raw_bikeshare_data[raw_bikeshare_data["Trip Route Category"]
-                            == "Round Trip"]
+round_trips_only = raw_bikeshare_data[raw_bikeshare_data["Trip Route Category"] == "Round Trip"]
 # This creates a dataframe that contains only one-way trips, exlcuding those that start or end at Station 4108, since the longitude and latitude are incorrect for that station.
-one_way_trips_only = raw_bikeshare_data_omitting_station_4108[
-    raw_bikeshare_data_omitting_station_4108["Trip Route Category"] == "One Way"]
+one_way_trips_only = raw_bikeshare_data_omitting_station_4108[raw_bikeshare_data_omitting_station_4108["Trip Route Category"] == "One Way"]
 # This changes all coordinates from degrees to radians. We are only using one-way trips because the starting and ending stations have different coordinates.
 starting_longitude, starting_latitude, ending_longitude, ending_latitude = map(
     np.radians, [one_way_trips_only['Starting Station Longitude'], one_way_trips_only['Starting Station Latitude'], one_way_trips_only['Ending Station Longitude'], one_way_trips_only['Ending Station Latitude']])
@@ -103,22 +100,18 @@ difference_of_latitudes = ending_latitude - starting_latitude
 difference_of_longitudes = ending_longitude - starting_longitude
 # This is the Haversine distance formula for calculating distance between a set of coordinates.
 r = 3959  #radius of Earth in miles
-distance_in_miles = 2 * 3959 * np.arcsin(np.sqrt((np.sin(difference_of_latitudes/2))**2 + np.cos(
-    starting_latitude) * np.cos(ending_latitude) * (np.sin(difference_of_longitudes/2))**2))
+distance_in_miles = 2 * r * np.arcsin(np.sqrt((np.sin(difference_of_latitudes/2))**2 + np.cos(starting_latitude) * np.cos(ending_latitude) * (np.sin(difference_of_longitudes/2))**2))
 # This adds a column "Distance in Miles" containing the distance traveled for each one-way ride to the "one_way_trips_only" dataframe.
-one_way_trips_only["Distance in Miles"] = pd.Series(
-    distance_in_miles).values
+one_way_trips_only["Distance in Miles"] = pd.Series(distance_in_miles).values
 # This makes sure that each distance is above 0, so we know we don't have any null values or faulty data.
 one_way_trips_only_with_distance = one_way_trips_only[one_way_trips_only["Distance in Miles"] > 0]
 # This calculates average speed in miles per minutes for one-way trips.
 average_speed_in_miles_per_min = np.sum(
     one_way_trips_only_with_distance["Distance in Miles"])/np.sum(one_way_trips_only_with_distance["Duration"]/60)
 # This estimates the distance traveled during round trips by multiplying the average speed of the one-way trips by the durations of the round-trips. We are assuming that the average speed of the one-way trips is the average speed for all trips.
-estimate_distances_for_round_trips = average_speed_in_miles_per_min * \
-    (round_trips_only["Duration"]/60)
+estimate_distances_for_round_trips = average_speed_in_miles_per_min * (round_trips_only["Duration"]/60)
 # This adds a column "Estimated Distance in Miles" containing the estimated distance traveled for each round trip ride to the "round_trips_only" dataframe.
-round_trips_only["Estimated Distance in Miles"] = pd.Series(
-    estimate_distances_for_round_trips).values
+round_trips_only["Estimated Distance in Miles"] = pd.Series(estimate_distances_for_round_trips).values
 # This makes sure that each distance is above 0, so we know we don't have any null values or faulty data.
 round_trips_only_with_estimated_distance = round_trips_only[
     round_trips_only["Estimated Distance in Miles"] > 0]
