@@ -762,7 +762,7 @@ app.layout = html.Div([
                              'marginLeft': 25,
                              'marginBottom': 25
                          }
-                         ),
+                         )
 
             ])
         ])
