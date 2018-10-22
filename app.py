@@ -1,3 +1,4 @@
+#Import all libraries needed to effectively run the application's visualizations and calculations
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -48,8 +49,8 @@ passholder_type_count = pd.DataFrame(
 trip_route_category_count = pd.DataFrame(
     {"count": raw_bikeshare_data.groupby(["Trip Route Category"]).size()}).reset_index()
 # This creates a dataframe that has a rwo for every unique Passholder Type and Trip Route combination and counts the numbers of rides for each times each combination.
-trip_route_passholder_type_combo_count = pd.DataFrame({"count": raw_bikeshare_data.groupby(
-    ["Passholder Type", "Trip Route Category"]).size()}).reset_index()
+trip_route_passholder_type_combo_count = pd.DataFrame(
+    {"count": raw_bikeshare_data.groupby(["Passholder Type", "Trip Route Category"]).size()}).reset_index()
 # This adds the columnn "Passholder Type & Trip Route" to the "trip_route_passholder_type_combo_count" data that combines the Passholder Type and Trip Route Category into one column, so a graph is easier to make.
 trip_route_passholder_type_combo_count["Passholder Type & Trip Route"] = trip_route_passholder_type_combo_count[
     "Passholder Type"] + " & " + trip_route_passholder_type_combo_count["Trip Route Category"].map(str)
