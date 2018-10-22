@@ -9,12 +9,13 @@ from dash.dependencies import Input, Output, State
 
 #CSS stylesheet from the given link.
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] 
+#This adds the stylesheet to our web application
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets) 
+ #This helps with deployment of the web application
+server = app.server
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-server = app.server #This helps with deployment of the web application
-
+#This reads the csv file and turns it into a dataframe.
 raw_bikeshare_data = pd.read_csv('metro-bike-share-trip-data.csv', low_memory=False)
-
 # Station 4108 does not have accurate longitude and latitude coordinates, so it must be removed to produce reliable results.
 raw_bikeshare_data_omitting_station_4108 = raw_bikeshare_data[(
     raw_bikeshare_data['Starting Station ID'] != 4108) & (raw_bikeshare_data['Ending Station ID'] != 4108)]
@@ -130,7 +131,6 @@ average_ride_duration_by_day = (raw_bikeshare_data_split_starting_date_and_time[
 # This creates a dataframe that contains the number of rides that started every minute.
 number_of_rides_by_time = pd.DataFrame(
     {"count": raw_bikeshare_data_split_starting_date_and_time.groupby(["Starting Time"]).size()}).reset_index()
-
 
 app.layout = html.Div([
     dcc.Tabs(id="tabs", children=[
