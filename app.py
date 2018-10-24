@@ -220,7 +220,7 @@ app.layout = html.Div([
                       }
                 ),
                 html.Div('''
-                        This bar graph shows the number of trips that leave from each starting station. The most popular starting station is Station 3069, with 5,138 rides leaving from there! The least popular starting station is Station 3009. This is because the station is located in Venice, Los Angeles, which is extrmeely far away from the cluster of ride stations in downtown LA.
+                        This bar graph shows the number of trips that leave from each starting station. The most popular starting station is Station 3069, with 5,138 rides leaving from there! The least popular starting station is Station 3009. This is because the station is located in Venice, Los Angeles, which is extremely far away from the cluster of ride stations in downtown LA.
                             ''',
                          style={
                              'textAlign': 'center',
@@ -410,7 +410,7 @@ app.layout = html.Div([
                     }
                 ),
                 html.Div('''
-                          The pie chart above shows the breakdown of one-way trips and round-trips. The overwhemlingly majority (90.3%) of trips are one-way. A small portion (9.65%) constitutes of round-trips. Since a lot of people use this system to commute, they most likely make a one-way trip to work and another one-way trip back home. This explains why so many of the trips are one-way.
+                          The pie chart above shows the breakdown of one-way trips and round-trips. The overwhemling majority (90.3%) of trips are one-way. A small portion (9.65%) constitutes of round-trips. Since a lot of people use this system to commute, they most likely make a one-way trip to work and another one-way trip back home. This explains why so many of the trips are one-way.
                           ''',
                          style={
                              'textAlign': 'center',
@@ -515,7 +515,7 @@ app.layout = html.Div([
                     }
                 ),
                 html.Div('''
-                          This histogram shows the distribution for the distance traveled during one-way trips. This distribution is also positively skewed. The distance was calculated by using the latitude and longitude coordinates of the starting and ending stations. The mode distance for one way trips is between 0.45 and 0.5 a mile. The majority of one-way trips are between 0.05 and 2 miles.
+                          This histogram shows the distribution for the distance traveled during one-way trips. This distribution is also positively skewed. The distance was calculated by using the latitude and longitude coordinates of the starting and ending stations. The mode distance for one way trips is between 0.45 and 0.5 miles. The majority of one-way trips are between 0.05 and 2 miles.
                             ''',
                          style={
                              'textAlign': 'center',
@@ -551,7 +551,7 @@ app.layout = html.Div([
                     }
                 ),
                 html.Div('''
-                          This histogram shows the distribution of the estimated distance traveled during round trips. The distance cannot be calculated precisely using latitude and longitude coordinates, because the starting and ending stations are the same for round trips. By calculating the average speed of bike rides (using data from one-way trips), and multiplying it by the duration of each round trip ride, we are able to find a rough estimate for the distance of each round trip ride. We see that the peak in the estimated distance for round trips occurs around 0.85-90 miles, which is double the distance where the peak for one-way trips occured. This makes sense because round-trip rides are usually about twice as long as one-way rides.
+                          This histogram shows the distribution of the estimated distance traveled during round trips. The distance cannot be calculated precisely using latitude and longitude coordinates, because the starting and ending stations are the same for round trips. By calculating the average speed of bike rides (using data from one-way trips), and multiplying it by the duration of each round trip ride, we are able to find a rough estimate for the distance of each round trip ride. We see that the peak in the estimated distance for round trips occurs around 0.95-1 miles, which is double the distance where the peak for one-way trips occured. This makes sense because round-trip rides are usually about twice as long as one-way rides.
                             ''',
                          style={
                              'textAlign': 'center',
@@ -595,7 +595,7 @@ app.layout = html.Div([
                       }
                 ),
                 html.Div('''
-                          This graph shows the number of rides per day over a course of 9 months. We can see that in the summer months (July & August), the number of rides per day increases over time. Starting the fall season in September, the number of rides per day decreases all the way until the end of winter (end of February). This makes sense because as weather gets colder, people are less inclined to ride bikes. During the spring, we see a slow increase in the total number of rides per day, since the weather warms up and people like spending more time outside. One interesting observation is the sudden spike in ridership on October 16, 2016, which is odd for the seasonal pattern. This is a result of the CicLAvia Bike Festival hosted in downtown LA on that day. Similarly, we see another odd spike in ride on January 21, 2017; this can be attributed to 2018 LA Women's March, where people where encouraged to use Bike Share instead of cars because of traffic.
+                          This graph shows the number of rides per day over a course of 9 months. We can see that in the summer months (July & August), the number of rides per day increases over time. Starting the fall season in September, the number of rides per day decreases all the way until the end of winter (end of February). This makes sense because as weather gets colder, people are less inclined to ride bikes. During the spring, we see a slow increase in the total number of rides per day, since the weather warms up and people like spending more time outside. One interesting observation is the sudden spike in ridership on October 16, 2016, which is odd for the seasonal pattern. This is a result of the CicLAvia Bike Festival hosted in downtown LA on that day. Similarly, we see another odd spike in ride on January 21, 2017; this can be attributed to 2018 LA Women's March, where people were encouraged to use Bike Share instead of cars because of traffic.
                             ''',
                          style={
                              'textAlign': 'center',
@@ -692,7 +692,7 @@ app.layout = html.Div([
                     }
                 ),
                 html.Div('''
-                          The graph above shows the number of Round Trip and One-Way rides taken per day. The number of Round-Trip rides stay relatively constant over the seasons, but dips slightly in the winter. The number of One-Way trips follows the pattern we saw in the other graphs: a spike during the summer months, a low during the winter months, and an incline starting during the spring. Round Trips also spike every weekend, while One-Way trips drop. This is because many people use One-Way trips to commute; so on the weekends when there is no work, less one-way trips occur. On the other hand, Round trips increase because people go biking on the weekends as a fun outdoors activity and usually return to the same destination afterwards.
+                          The graph above shows the number of Round Trip and One-Way rides taken per day. The number of One-Way and Round trips follows the pattern we saw in the other graphs: a spike during the summer months, a low during the winter months, and an incline starting during the spring. Round Trips also spike every weekend, while One-Way trips drop. This is because many people use One-Way trips to commute; so on the weekends when there is no work, less one-way trips occur. On the other hand, Round trips increase because people go biking on the weekends as a fun outdoors activity and usually return to the same destination afterwards.
                             ''',
                          style={
                              'textAlign': 'center',
