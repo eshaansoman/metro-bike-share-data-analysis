@@ -42,7 +42,7 @@ matplotlib==3.0.0
 more-itertools==4.3.0
 mpu==0.15.0
 nbformat==4.4.0
-numpy==1.15.2
+numpy==1.22.0
 packaging==18.0
 pandas==0.23.4
 parso==0.3.1
